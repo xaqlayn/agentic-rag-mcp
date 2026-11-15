@@ -1,0 +1,21 @@
+name: import-project
+on: push
+permissions:
+  contents: write
+jobs:
+  import:
+    if: ${{ !contains(github.event.head_commit.message, '[imported]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack project from rag-transfer
+        run: |
+          curl -fsSL -o /tmp/p.zip https://github.com/xaqlayn/rag-transfer/raw/HEAD/agentic-rag-mcp-v3.zip
+          unzip -q /tmp/p.zip -d /tmp/p
+          shopt -s dotglob
+          cp -r /tmp/p/agentic-rag-mcp/* .
+          git config user.name "Saqlain Majeed"
+          git config user.email "xaqlayn@users.noreply.github.com"
+          git add -A
+          git commit -m "Add agentic RAG MCP server project [imported]"
+          git push
