@@ -1,0 +1,21 @@
+order_id,order_date,customer,product,quantity,unit_price,region
+1001,2026-01-12,Alpina Bau,Sensor Kit,10,49.90,Bavaria
+1002,2026-01-18,Nordlicht AG,Gateway Pro,2,399.00,Hamburg
+1003,2026-02-03,Alpina Bau,Gateway Pro,1,399.00,Bavaria
+1004,2026-02-09,Rheintal Tech,Sensor Kit,25,49.90,NRW
+1005,2026-02-21,Nordlicht AG,Sensor Kit,40,47.50,Hamburg
+1006,2026-03-02,Isar Logistik,Gateway Lite,6,189.00,Bavaria
+1007,2026-03-14,Rheintal Tech,Gateway Pro,3,399.00,NRW
+1008,2026-03-27,Isar Logistik,Sensor Kit,15,49.90,Bavaria
+1009,2026-04-05,Elbe Systems,Gateway Lite,4,189.00,Hamburg
+1010,2026-04-19,Alpina Bau,Service Plan,1,1200.00,Bavaria
+1011,2026-05-07,Rheintal Tech,Service Plan,2,1200.00,NRW
+1012,2026-05-22,Nordlicht AG,Gateway Pro,5,379.00,Hamburg
+1013,2026-06-10,Elbe Systems,Sensor Kit,30,47.50,Hamburg
+1014,2026-06-25,Isar Logistik,Service Plan,1,1200.00,Bavaria
+1015,2026-07-08,Alpina Bau,Gateway Lite,8,189.00,Bavaria
+1016,2026-07-30,Rheintal Tech,Sensor Kit,50,45.00,NRW
+1017,2026-08-13,Nordlicht AG,Service Plan,1,1200.00,Hamburg
+1018,2026-09-04,Isar Logistik,Gateway Pro,2,399.00,Bavaria
+1019,2026-09-17,Elbe Systems,Gateway Pro,3,379.00,Hamburg
+1020,2026-10-01,Alpina Bau,Sensor Kit,20,49.90,Bavaria

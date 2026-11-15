@@ -1,0 +1,62 @@
+# Everything except the LLM runs in Docker: Qdrant, the embedding model (llama-server) and the MCP server.
+# The LLM is Unsloth Studio, which runs on the host and connects to the `mcp` service by URL.
+#
+#   1. put an embedding model (.gguf) into ./models  (see README)
+#   2. docker compose up -d --build
+#   3. docker compose exec mcp python -m app.ingest     # load documents + tables
+#   4. docker compose exec mcp python -m app.check      # test all connections
+#   5. Unsloth Studio: MCP -> Add custom MCP -> http://localhost:8000/mcp   (Studio on this same server)
+
+services:
+  qdrant:
+    image: qdrant/qdrant:latest        # pin a version (e.g. qdrant/qdrant:v1.15.0) for production
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6333:6333"          # this machine only (dashboard/debugging); mcp uses the internal network
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  # Embedding model. Runs on the CPU, which is simplest and works everywhere.
+  # No published port: only the mcp container talks to it, over the internal Docker network.
+  embeddings:
+    image: ghcr.io/ggml-org/llama.cpp:server
+    restart: unless-stopped
+    command:
+      - "-m"
+      - "/models/${EMBED_GGUF:-bge-m3-q8_0.gguf}"
+      - "--embeddings"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "8081"
+      - "-c"
+      - "8192"        # total context, split across the parallel slots below
+      - "-np"
+      - "4"           # 4 slots -> 2048 tokens per request
+      - "-b"
+      - "2048"
+      - "-ub"
+      - "2048"
+    volumes:
+      - ./models:/models:ro
+
+  mcp:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      QDRANT_URL: http://qdrant:6333           # service names on the internal Docker network
+      EMBED_BASE_URL: http://embeddings:8081/v1
+    depends_on:
+      - qdrant
+      - embeddings
+    ports:
+      - "8000:8000"      # Unsloth connects here (protected by MCP_AUTH_TOKEN).
+                         # If Studio runs on this same server you can restrict it: "127.0.0.1:8000:8000"
+    volumes:
+      - ./data:/srv/data:ro
+      - mcp_state:/srv/state
+
+volumes:
+  qdrant_data:
+  mcp_state:

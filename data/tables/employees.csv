@@ -1,0 +1,11 @@
+employee_id,name,department,hire_date,location
+E001,Anna Berger,Engineering,2021-03-01,Rosenheim
+E002,Jonas Keller,Engineering,2022-09-15,Rosenheim
+E003,Mira Hofmann,Sales,2020-01-06,Munich
+E004,Lukas Brandt,Sales,2023-05-02,Hamburg
+E005,Sofia Wagner,HR,2019-11-01,Rosenheim
+E006,Tim Neumann,Engineering,2024-02-01,Munich
+E007,Elif Demir,Support,2022-04-11,Rosenheim
+E008,Paul Schuster,Support,2025-01-13,Hamburg
+E009,Clara Vogel,Finance,2018-07-01,Rosenheim
+E010,Noah Winter,Engineering,2025-08-01,Rosenheim

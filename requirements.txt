@@ -1,0 +1,9 @@
+mcp>=2.3,<3          # MCP server SDK (pulls in starlette, pydantic, ...)
+uvicorn>=0.30         # runs the HTTP server
+qdrant-client>=1.12   # vector database client
+httpx>=0.27           # calls the llama-server embedding endpoint
+python-dotenv>=1.0    # reads .env when running outside Docker
+tzdata                # timezone database for the time tool
+
+# Optional: only if you want to put PDF files into data/docs/
+# pypdf>=5
